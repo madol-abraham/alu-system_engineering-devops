@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-ssh-keygen -f ~/.ssh/school -b 4096 .c"for school serverf"
+"""
+a bash script that connects to my server using the private key ~/.ssh/school with the user ubuntu
+"""
+ssh-keygen -f ~/.shh/school -b 4096

@@ -1,2 +1,8 @@
-~/.ssh/school
-ubuntu@100.24.26.79
+#!/usr/bin/env bash
+#ssh client configuration
+
+Host *
+    PasswordAuthentication no
+    Identity file ~/.ssh/school
+    HashknownHosts yes
+    HostName webserver

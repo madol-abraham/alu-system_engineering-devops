@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-"""
-a bash script that connects to my server using the private key ~/.ssh/school with the user ubuntu
-"""
-ssh-keygen -f ~/.shh/school -b 4096
+#This script connects to the server using a private key
+
+ssh -i ~/.ssh/school ubuntu@8.8.8.8

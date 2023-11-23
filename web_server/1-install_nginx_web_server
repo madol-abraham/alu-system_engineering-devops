@@ -1,7 +1,23 @@
 #!/usr/bin/env bash
-# installs the reverse proxy - Nginx
-sudo apt update && upgrade
-sudo apt install nginx -y 
-echo "Holberton School" | sudo tee /var/www/html/index.html
-sudo service nginx start
+#a Bash script that configures a new Ubuntu mach
+sudo apt-get update -y
+sudo apt-get install -y nginx
+#
+# Create a simple HTML page
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.html
+
+# Make sure Nginx is listening on port 80
+sudo sed -i 's/80 default_server/80 default_server;/g' /etc/nginx/sites-available/default
+
+# Restart Nginx (without using systemctl)
+sudo service nginx restart
+
+# Test if Nginx is serving the correct page and returns HTTP 200
+response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
+if [[ $response -eq 200 ]]; then
+    echo "Nginx installation and configuration successful! HTTP status code: $response"
+else
+    echo "Something went wrong. Check Nginx logs in /var/log/ for more information. HTTP status code: $response"
+fi
+
 

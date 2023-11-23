@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#a Bash script that configures a new Ubuntu machine
+# Update package list and install Nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
+
+# Create a simple HTML page
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.html
+
+# Make sure Nginx is listening on port 80
+sudo sed -i 's/80 default_server/80 default_server;/g' /etc/nginx/sites-available/default
+
+# Restart Nginx (without using systemctl)
+sudo service nginx restart
+
+# Test if Nginx is serving the correct page
+response=$(curl -s http://localhost)
+if [[ $response == *"Holberton School for the win!"* ]]; then
+    echo "Nginx installation and configuration successful!"
+else
+    echo "Something went wrong. Check Nginx logs in /var/log/ for more information."
+fi
+

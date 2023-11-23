@@ -15,9 +15,9 @@ sudo service nginx restart
 
 # Test if Nginx is serving the correct page
 response=$(curl -s http://localhost)
-if [[ $response == *"Holberton School for the win!"* ]]; then
-    echo "Nginx installation and configuration successful!"
+if [[ $response -eq 200 ]]; then
+    echo "Nginx installation and configuration successful! HTTP status code: $response"
 else
-    echo "Something went wrong. Check Nginx logs in /var/log/ for more information."
+    echo "Something went wrong. Check Nginx logs in /var/log/ for more information.HTTP status code: $response"
 fi
 

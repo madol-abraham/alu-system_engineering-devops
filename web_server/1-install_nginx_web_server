@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
-#a Bash script that configures a new Ubuntu mach
+# a script that install nginx
+# Update and install nginx with -y flag
 sudo apt-get update -y
-sudo apt-get install -y nginx
-#
-# Create a simple HTML page
+sudo apt-get install nginx -y
+
+# Create a custom HTML page with the required string
 echo "Holberton School for the win!" | sudo tee /var/www/html/index.html
 
-# Make sure Nginx is listening on port 80
-sudo sed -i 's/80 default_server/80 default_server;/g' /etc/nginx/sites-available/default
+# Ensure Nginx is listening on port 80
+sudo sed -i '/listen 80 default_server;/s/^#//g' /etc/nginx/sites-available/default
 
-# Restart Nginx (without using systemctl)
-sudo service nginx restart
+# Restart Nginx without using systemctl
+sudo service nginx reload
 
-# Test if Nginx is serving the correct page and returns HTTP 200
-response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
-if [[ $response -eq 200 ]]; then
-    echo "Nginx installation and configuration successful! HTTP status code: $response"
+# Check if Nginx is running and serving the correct content
+response=$(curl -s http://localhost)
+if [[ $response == *"Holberton School"* ]]; then
+  echo "Nginx successfully installed and configured."
 else
-    echo "Something went wrong. Check Nginx logs in /var/log/ for more information. HTTP status code: $response"
+  echo "Error: Nginx configuration failed."
 fi
+
 
 
